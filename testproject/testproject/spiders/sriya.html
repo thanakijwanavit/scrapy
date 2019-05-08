@@ -1,0 +1,123 @@
+
+
+
+
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1"><title>
+	CW Software
+</title>
+    <script type="text/javascript" src="/WebComm/Script/Common_Java.js"></script>
+    
+<link href="../../App_Themes/Theme1/Style.css" type="text/css" rel="stylesheet" /></head>
+<body>
+
+
+    <script type="text/javascript" language="javascript">
+        
+        document.onkeydown = function (event) {
+            var iAcceptKeyPress = true;
+            var iKeyCode = (event.which) ? event.which : event.keyCode;
+            if (iKeyCode == KeyCode._Enter) {
+                var iEle_Focused = document.activeElement;
+                var iTxUsr = FindObject('cTxUserName');
+                var iTxPwd = FindObject('cTxPassword');
+                var iBtnLogin = FindObject('cBtnLogin');
+                if (iEle_Focused == iTxUsr) {
+                    iAcceptKeyPress = false;
+                    iTxPwd.focus();
+                }
+                else if (iEle_Focused == iTxPwd){// || iEle_Focused == iChkBox) {
+                    iAcceptKeyPress = false;
+                    iBtnLogin.focus();
+                    iBtnLogin.click();
+                }
+
+                return iAcceptKeyPress;
+            }
+        }
+
+    </script>
+
+    
+
+    <style type="text/css">
+
+            .Login_Panel{
+                margin-top:20px;
+                position: relative;
+                border: 0px solid green;
+                width: 960px;
+                height: 561px; 
+
+                background-position: center center; 
+                background-image: url('/App_Themes/Theme1/Images/General/Login_Background.png'); 
+                background-repeat: no-repeat;
+            }
+
+
+    </style>
+    <form method="post" action="./Login.aspx" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODI3NzU4MjczD2QWAgIBD2QWBGYPDxYCHgRUZXh0BbIBPHNwYW4gc3R5bGU9J2NvbG9yOiBpbmhlcml0OyBjdXJzb3I6IGRlZmF1bHQ7JyB0aXRsZT0nSVAgQWRkcmVzczogNTguOC4xOTYuNzUnPiYjOTYzMjs8L3NwYW4+PHNwYW4gc3R5bGU9J2NvbG9yOiBpbmhlcml0OyBjdXJzb3I6IGRlZmF1bHQ7JyB0aXRsZT0nQ29tcHV0ZXIgTmFtZTogJz4mIzk2MzM7PC9zcGFuPmRkAgUPDxYCHwAFQUNvcHlyaWdodCDCqTIwMTIgLSAyMDE5IENXIFNvZnR3YXJlIENvLixMdGQuIEFsbCByaWdodHMgcmVzZXJ2ZWQuZGRkYkMR2c0Tzt7QZg1uoNn6rzNKIV+cbycn37bMP51IuVY=" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="D836F9A7" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAje2KXYw9HitQbJByKSwiEfTwtkPnPQjApYjNbYjQkQS3AN1vVzU20D/UO4fbuP1c7UyC4iFW8XQIy/xk2IwjMfd86BIXQ3XebgSOpuCKIXomKF2sgexf+C38QoXxPWQ5C4PiBEFuyVBlGmzwhFoKIWgRnVQJo6IiONRy5RHxpnVAT+ysk8O3mDPBEaSEzJfXI2cLmpyMSlNImCZxYxZzgI" />
+
+
+
+<table style="width:100%;" border="0" cellpadding="0" cellspacing="0" width="100%"><tr><td align="center">
+
+        <table class="Login_Panel" border="0" cellpadding="0" cellspacing="0"><tr><td align="left" valign="top">
+
+            <a href="/WebFront/ModernPage/Pos.aspx" class="Login_SaleRetail">
+                <span id="cLbComFlag"><span style='color: inherit; cursor: default;' title='IP Address: 58.8.196.75'>&#9632;</span><span style='color: inherit; cursor: default;' title='Computer Name: '>&#9633;</span></span>
+            </a>
+
+
+            <input name="cTxUserName" type="text" maxlength="10" id="cTxUserName" />
+            <input name="cTxPassword" type="password" maxlength="10" id="cTxPassword" />
+            <a id="cBtnLogin" href="javascript:__doPostBack(&#39;cBtnLogin&#39;,&#39;&#39;)">เข้าสู่ระบบ</a>
+
+
+            <span id="cLbError"></span>
+
+
+            <span id="cLbCopyRight">Copyright ©2012 - 2019 CW Software Co.,Ltd. All rights reserved.</span>
+            
+        </td></tr></table>
+
+
+
+
+
+
+    <input type="hidden" name="cHdComputerName" id="cHdComputerName" />
+    <input type="hidden" name="cHdComputerIP" id="cHdComputerIP" value="58.8.196.75" />
+    <a id="cLkUpdateComDet" href="javascript:__doPostBack(&#39;cLkUpdateComDet&#39;,&#39;&#39;)"></a>
+    <input type="hidden" name="cHdIsUpdateComDetComplete" id="cHdIsUpdateComDetComplete" value="false" />
+    
+    <script type="text/javascript" language="javascript">
+        try {
+            var iAxNetwork = new ActiveXObject("WScript.Network");
+            if (iAxNetwork != null){
+                FindObject('cHdComputerName').value = iAxNetwork.ComputerName;
+
+                __doPostBack('cLkUpdateComDet','');
+            }
+        } catch (e) { }
+
+    </script>
+    
+
+
+</td></tr></table>
+
+
+</form>
+
+</body>
+</html>

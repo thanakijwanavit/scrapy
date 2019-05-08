@@ -1,0 +1,550 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head id="Head1"><title>
+	CW Software
+</title><link type="image/vnd.microsoft.icon" rel="shortcut icon" href="/favicon.ico" />
+
+    <script type="text/javascript" src="/WebComm/Script/Common_Java.js"></script>
+
+    <script type="text/javascript" src="/WebComm/Script/highslide/highslide-full.js"></script>
+    <script type="text/javascript" src="/WebComm/Script/highslide/highslide.config.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="/WebComm/Script/highslide/highslide.css" />
+    <!--[if lt IE 7]>
+    <link rel="stylesheet" type="text/css" href="/WebComm/Script/highslide/highslide-ie6.css" />
+    <![endif]-->
+    
+
+    <script type="text/javascript">
+        var _Id_TxFindValue = 'MainContent_cTxFindValue';
+        var _Id_BtnFind = 'MainContent_cBtnFind';
+        var _Id_HdGridColumns = 'MainContent_cHdGridColumns';
+
+        var _PickList_Type = -1;
+        var _ItemSelectedValue = '';
+        var _DropDownLIstId = '';
+        var _OdsListId = '';
+
+
+
+        var iInvId = setInterval(function () {
+            FocusAfterLoad();
+            clearInterval(iInvId);
+        }, 500);
+
+
+        var _IsRefreshAfterClose = false;
+        hs.Expander.prototype.onAfterClose = function () {
+            if (_IsRefreshAfterClose) {
+                if (_DropDownLIstId != '')
+                    UpdateDropDownList();
+                else
+                    javascript:__doPostBack('ctl00$MainContent$cLkUpdate','');
+            }
+            else {
+                FocusAfterLoad();
+            }
+        }
+
+        function UpdateDropDownList() {
+            var iOptions = FindObject(_DropDownLIstId).options;
+            var iOption = null;
+            for (var i = 0; i < iOptions.length; i++) {
+                if (iOptions[i].value == _ItemSelectedValue) {
+                    iOption = iOptions[i];
+                    break;
+                }
+            }
+            
+            if (iOption != null)
+                iOption.selected = true;
+        }
+
+        function FocusAfterLoad() {
+            var iObj = FindObject(_Id_TxFindValue);
+            if (iObj != null) {
+                iObj.focus();
+                iObj.select();
+            }
+            else {
+                iObj = FindObject(_Id_BtnFind);
+                if (iObj != null)
+                    iObj.focus();
+            }
+        }
+        function FocusAfterClickRadio() {
+            var iObj = FindObject('MainContent_cTxFindValue');
+            if (iObj != null) {
+                iObj.select();
+                iObj.focus();
+            }
+        }
+
+        function UpdateGridColumns(fColumns) {
+            FindObject(_Id_HdGridColumns).value = fColumns;
+        }
+
+
+        function RefreshAfterClose() {
+            __doPostBack('ctl00$MainContent$cLkUpdate','');
+        }
+        function RefreshAfterInsert(fProduct_Id) {
+            FindObject('MainContent_cHdProduct_Id').value = fProduct_Id;
+            FindObject('MainContent_cHdIsCopyToInsert').value = false;
+            __doPostBack('ctl00$MainContent$cLkUpdateAfterInserted','');
+        }
+        function InsertFromCurrentProduct(fProduct_Id) {
+            FindObject('MainContent_cHdProduct_Id').value = fProduct_Id;
+            FindObject('MainContent_cHdIsCopyToInsert').value = true;
+            __doPostBack('ctl00$MainContent$cLkInsertFromCurrentProduct','');
+        }
+    </script>
+
+<link href="../../App_Themes/Theme1/Style.css" type="text/css" rel="stylesheet" /></head>
+<body>
+
+    <form method="post" action="./StockProduct_Man.aspx" id="Form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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" />
+
+
+<script src="/WebResource.axd?d=QMrytPY9cn6g9MHJ-tG3UGBlL9n6zOjPtdkuPjNI9a1BOJKoiWDTzhHCaXf1uifxbRWLkmo4JA8expu39uy1eNBElo7K8zOskaNIu0n4dmE1&amp;t=636780084950071154" type="text/javascript"></script>
+<script src="/WebResource.axd?d=HC8cJ-w1camFPGwke-w_d_kDH3AqZuFmf8Gfk41vA6K9UTKg83fsQuTzkEe6_N0iZToB6nA_1K-oiREUTtjZnlwr3y7ceCbchYj4bWWznVo1&amp;t=636780084950071154" type="text/javascript"></script>
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="BE3FD0E6" />
+<input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value="" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="m5P9rhA6tWnHDu84svKcf4GVFrS3x7jsxnvPKMWKjvlvZBQZrUX4fFNudsfuX0KjKy8hI7s1XWYoYePaFbEoc91k7Vn2th88Hl8aE2Gw/Slfye8+nEr2ppzJVQkeDmGAFyyY7bmKpHDxJTNb1euLGYqZzCRTz4fbXOuagjwt3Z6fgoXE/B7d3cScghD7C1hMzkMo/lnyemZrRViBRevZqR8dn7Zhwvrj3qUph8Y18q1B5uQfwLos/Ji7FNyG7obPr8IZq3DaT/zUqpRqoImgSiqb9c8wIyjtGyjq+DBm51FdNPbZrscOx9Q1atxUWVOQ6O3ztBQGtDJIGjodlfw/y/GJ2Mv6haHgw0UtofsE+3xDkbcNUEeJwGjVRGRHgvpAhg8P6i0PdmkxvcSbIMzxpXqVgxFnmrHEuv9IIHcjp4QqlKMkaQv21agKFPafMoxcouhwQ2dYHaR0UysleKMvfoPXAjeI8QNNbyDw2+3NhOXAalnLV6dEf7AH8y/NkPpMrEKa/3iw32Djtfgq2tMoEa08H1io8VpMkR8lg9d3v3/HOfGFxWpfIB2crHGwEcCsvDraiYvmquRND8e2OzLpZ5Xeulr5B1fwzwvLyGsEpiAoochP6vSEpRLG+Vx3Pq0A/bnYLfc0QaQHFcu2kJh0FjtzlSLVwkPOe8zVjFF3Er8E+1K9bokFwZvT6hVfaLlMfEMxRXKX8vjrCu6BDYaNp4lZK52lrzWOmehLRw0N9KlNArNHCfEOy00kaZkZg661sprNB4xnrmGc8Cj0lmagEQ==" />
+
+    <div id="cDvPageMain">
+
+			
+
+<style type="text/css">
+
+    div#cDvHead_Logo{
+        position: absolute;
+        border: 0px solid blue;
+        left: 15px;
+        top: 10px;
+
+        width: 109px;
+        height: 45px;
+        background-image: url('/App_Themes/Theme1/Images/General/CompLogo.png'); 
+        background-repeat: no-repeat;
+    }
+
+
+
+
+    /*div#cDvHead_Title{
+        position: absolute;
+        border: 0px solid brown;
+        left: 120px;
+        top: 5px;
+
+        width: 680px;
+        height: 60px;
+        text-align: center;
+        vertical-align: middle;
+    }*/
+
+    
+
+
+    /*span#cSpHead_Title1 {
+        position: relative;
+        display:inline-block;
+
+        color: #ffffff;
+        border: 0px solid blue;
+        filter: Glow(Color=#000000, Strength=3); 
+        text-shadow: 0px 0px 5px #000000; 
+        
+        font-family: AngsanaUPC;
+        font-weight: bold;
+        font-size: 36px;
+    }
+    span#cSpHead_Title2{
+        position: relative;
+        display: inline-block;
+
+        height: 100%;
+        color: #ffffff;
+        padding-left: 10px;
+        border: 0px solid red;
+        filter: Glow(Color=#000000, Strength=3); 
+        text-shadow: 0px 0px 5px #000000; 
+        
+        font-family: AngsanaUPC;
+        font-size: 26px;
+    }*/
+
+
+</style>
+
+
+
+<div id="cDvHead_Main">
+
+    <div id="cDvHead_Logo"></div>
+    <div id="cDvHead_Title">
+        <span id="cSpHead_Title1">บริษัท ศิริยาฟาร์มา (2) จำกัด<span id="cSpHead_Title2">หน้าร้าน</span></span>
+    </div>
+    <div id="cDvHead_Acc">
+        <div id="cDvHead_AccTitle">ชื่อผู้ใช้งาน:</div>
+        <div id="cDvHead_AccFullName">Health Express</div>
+        <a id="cBtnHead_AccLogout" href="javascript:__doPostBack(&#39;ctl00$Page_Header1$cBtnHead_AccLogout&#39;,&#39;&#39;)">[ ออกจากระบบ ]</a>
+    </div>
+
+</div>
+
+
+<input type="hidden" name="ctl00$Page_Header1$cHdCompany_Title1" id="Page_Header1_cHdCompany_Title1" value="บริษัท ศิริยาฟาร์มา (2) จำกัด" />
+<input type="hidden" name="ctl00$Page_Header1$cHdCompany_Title2" id="Page_Header1_cHdCompany_Title2" value="หน้าร้าน" />
+<input type="hidden" name="ctl00$Page_Header1$cHdLogin_FullName" id="Page_Header1_cHdLogin_FullName" value="Health Express" />
+
+            
+
+<table border="0" cellpadding="0" cellspacing="0" style="width:100%;">
+    <tr><td>
+        <div class="MenuMain_Container">
+        <table border="0" cellpadding="0" cellspacing="0" align="center">
+            <tr>
+                <td>
+                    <div class="MenuMain" id="MenuMain1_cMenuMain">
+	<ul class="level1">
+		<li><a class="level1" href="../Home/Main.aspx">หน้าหลัก</a></li><li><a class="level1 aspNetDisabled"><span style='color:silver;'>บริการลูกค้า</span></a></li><li><a class="level1 selected" href="StockProduct_Man.aspx">คลังสินค้า</a></li><li><a class="level1 aspNetDisabled"><span style='color:silver;'>สำนักงานสาขา</span></a></li><li><a class="level1 aspNetDisabled"><span style='color:silver;'>สมาชิกการค้า</span></a></li><li><a class="level1 aspNetDisabled"><span style='color:silver;'>รายงาน</span></a></li><li><a class="level1 aspNetDisabled"><span style='color:silver;'>ตั้งค่าระบบ</span></a></li><li><a class="level1 aspNetDisabled"><span style='color:silver;'>ช่วยเหลือ</span></a></li>
+	</ul>
+</div>
+                </td>
+            </tr>
+        </table>
+        </div>
+    </td></tr>
+</table>
+
+            
+    
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td align="left">
+            <table id="MenuSub_MenuSub_Stocks_cMenu1" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td onmouseover="Menu_HoverStatic(this)" onmouseout="Menu_Unhover(this)" onkeyup="Menu_Key(event)" id="MenuSub_MenuSub_Stocks_cMenu1n0"><table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="Green">
+			<tr>
+				<td nowrap="nowrap"><a href="StockProduct_Man.aspx"><font color="White">รายการสินค้า</font></a></td>
+			</tr>
+		</table></td><td width="1"></td>
+	</tr>
+</table>
+        </td>
+        <td style="width:5%;"></td>
+        <td align="center">
+            <table id="MenuSub_MenuSub_Stocks_cMenu2" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td id="MenuSub_MenuSub_Stocks_cMenu2n0"><table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="Gray">
+			<tr>
+				<td nowrap="nowrap"><a disabled="true"><font color="White">ประมวลผลการสั่งซื้อ</font></a></td>
+			</tr>
+		</table></td><td width="1"></td><td width="1"></td><td id="MenuSub_MenuSub_Stocks_cMenu2n1"><table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="Gray">
+			<tr>
+				<td nowrap="nowrap"><a disabled="true"><font color="White">จำนวนสินค้าใกล้หมด</font></a></td>
+			</tr>
+		</table></td><td width="1"></td><td width="1"></td><td id="MenuSub_MenuSub_Stocks_cMenu2n2"><table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="Gray">
+			<tr>
+				<td nowrap="nowrap"><a disabled="true"><font color="White">สั่งซื้อสินค้า</font></a></td>
+			</tr>
+		</table></td><td width="1"></td>
+	</tr>
+</table>
+        </td>
+        <td align="right">
+            <table id="MenuSub_MenuSub_Stocks_cMenu3" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td id="MenuSub_MenuSub_Stocks_cMenu3n0"><table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="Gray">
+			<tr>
+				<td nowrap="nowrap"><a disabled="true"><font color="White">รับสินค้าจากบริษัท</font></a></td>
+			</tr>
+		</table></td><td width="1"></td><td width="1"></td><td id="MenuSub_MenuSub_Stocks_cMenu3n1"><table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="Gray">
+			<tr>
+				<td nowrap="nowrap"><a disabled="true"><font color="White">ส่งคืนสินค้าให้บริษัท</font></a></td>
+			</tr>
+		</table></td><td width="1"></td><td width="1"></td><td id="MenuSub_MenuSub_Stocks_cMenu3n2"><table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="Gray">
+			<tr>
+				<td nowrap="nowrap"><a disabled="true"><font color="White">ปรับจำนวนสินค้า</font></a></td>
+			</tr>
+		</table></td><td width="1"></td>
+	</tr>
+</table>
+        </td>
+    </tr>
+</table>
+
+
+            
+            <div id="cDvBodyMain_Container">
+                
+
+    <fieldset style='' >
+        <legend>
+            <span ParentPanel="cPnProductAdd"><input id="MainContent_cChkProductAdd" type="checkbox" name="ctl00$MainContent$cChkProductAdd" checked="checked" /><label for="MainContent_cChkProductAdd">เพิ่มรายการสินค้า</label></span>
+        </legend>
+
+        <div id="MainContent_cPnProductAdd">
+	
+
+            <div style="text-align: center;">
+            <a href='/WebFront/Stocks/Products.aspx?q=%2fwEFDVByb2R1Y3RfSWQ9LTE%3d' 
+                onclick="return hs.htmlExpand(this, {objectType: 'iframe', width: 960, height: 750,headingText: 'รายละเอียดสินค้า', wrapperClassName: 'titlebar'});"
+                class="Button_Default">เพิ่มรายการสินค้า </a>
+            </div>
+
+        
+</div>
+
+    </fieldset>
+
+    <fieldset>
+        <legend>
+            <span ParentPanel="cPnProductSearch"><input id="MainContent_cChkProductSearch" type="checkbox" name="ctl00$MainContent$cChkProductSearch" checked="checked" /><label for="MainContent_cChkProductSearch">การค้นหา</label></span>
+        </legend>
+
+        <div id="MainContent_cPnProductSearch">
+	
+
+            <table align="center" cellpadding="4" cellspacing="0">
+            <tr>
+                <td>
+                    <table align="center" cellpadding="4" cellspacing="2" style="border: 1px solid gray; width: 100%; min-width:570px;">
+                        <tr style="background-color: Gray; color: White; font-weight:bold;">
+                            <td>
+                                <table align="center" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>ค้นหา</td>
+                                        <td>
+                                            <span id="MainContent_cRdFindType" onClick="PopupMessage(this, &#39;กำลังดำเนินการ กรุณารอสักครู่...&#39;, 500, 200);__doPostBack();"><input id="MainContent_cRdFindType_0" type="radio" name="ctl00$MainContent$cRdFindType" value="0" onclick="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$MainContent$cRdFindType$0\&#39;,\&#39;\&#39;)&#39;, 0)" /><label for="MainContent_cRdFindType_0">ตามเงื่อนไข</label><input id="MainContent_cRdFindType_1" type="radio" name="ctl00$MainContent$cRdFindType" value="1" checked="checked" /><label for="MainContent_cRdFindType_1">ทุกรายการ</label></span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    
+                            <table cellpadding="2" cellspacing="0" style="border: 1px solid gray; width: 100%;">
+                                <tr>
+                                    <td style="background-color: #F0F0F0; width: 120px; padding-left:15px;">
+                                        <input id="MainContent_cChkIsCompanyMfg" type="checkbox" name="ctl00$MainContent$cChkIsCompanyMfg" onclick="PopupMessage(this, &#39;กำลังดำเนินการ กรุณารอสักครู่...&#39;, 500, 200);" /><label for="MainContent_cChkIsCompanyMfg">บริษัทผลิต:</label>
+                                    </td>
+                                    <td style="padding: 5px 10px 5px 10px;">
+                                        
+                                    </td>
+                                    <td style="padding: 5px 10px 5px 0px;">
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="height: 3px; padding: 0px; border: 1px solid #D6D6D6; border-left: none; border-right: none;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #F0F0F0; padding-left: 15px;">
+                                        <input id="MainContent_cChkIsCompanySale" type="checkbox" name="ctl00$MainContent$cChkIsCompanySale" onclick="PopupMessage(this, &#39;กำลังดำเนินการ กรุณารอสักครู่...&#39;, 500, 200);" /><label for="MainContent_cChkIsCompanySale">บริษัทจำหน่าย:</label>
+                                    </td>
+                                    <td style="padding: 5px 10px 5px 10px;">
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="height: 3px; padding: 0px; border: 1px solid #D6D6D6; border-left: none; border-right: none;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #F0F0F0; padding-left: 15px;">
+                                        <input id="MainContent_cChkIsProductType" type="checkbox" name="ctl00$MainContent$cChkIsProductType" onclick="PopupMessage(this, &#39;กำลังดำเนินการ กรุณารอสักครู่...&#39;, 500, 200);" /><label for="MainContent_cChkIsProductType">ประเภท:</label>
+                                    </td>
+                                    <td style="padding: 5px 10px 5px 10px;">
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="height: 3px; padding: 0px; border: 1px solid #D6D6D6; border-left: none; border-right: none;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #F0F0F0; padding-left: 15px;">
+                                        <input id="MainContent_cChkIsProductGroup" type="checkbox" name="ctl00$MainContent$cChkIsProductGroup" onclick="PopupMessage(this, &#39;กำลังดำเนินการ กรุณารอสักครู่...&#39;, 500, 200);" /><label for="MainContent_cChkIsProductGroup">กลุ่ม:</label>
+                                    </td>
+                                    <td style="padding: 5px 10px 5px 10px;">
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" style="height: 3px; padding: 0px; border: 1px solid #D6D6D6; border-left: none; border-right: none;"></td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #F0F0F0; padding-left: 15px;">
+                                        <input id="MainContent_cChkIsProductGenericName" type="checkbox" name="ctl00$MainContent$cChkIsProductGenericName" onclick="PopupMessage(this, &#39;กำลังดำเนินการ กรุณารอสักครู่...&#39;, 500, 200);" /><label for="MainContent_cChkIsProductGenericName">Generic Name:</label>
+                                    </td>
+                                    <td style="padding: 5px 10px 5px 10px;">
+                                        
+                                    </td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            </table>
+
+
+                            <input type="hidden" name="ctl00$MainContent$cHdPickList_ProductGroup" id="MainContent_cHdPickList_ProductGroup" value="1" />
+                            <input type="hidden" name="ctl00$MainContent$cHdPickList_ProductType" id="MainContent_cHdPickList_ProductType" value="2" />
+                            <input type="hidden" name="ctl00$MainContent$cHdPickList_ProductGenericName" id="MainContent_cHdPickList_ProductGenericName" value="5" />
+                            
+                            
+                            
+                            
+
+                        
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <table cellpadding="2" cellspacing="0" style="border: 1px solid gray; width: 100%;">
+                        <tr>
+                            <td align="center" style="background-color: #F0F0F0; width: 120px; padding-left: 15px;">
+                                รายการ/หน้า
+                            </td>
+                            <td style="padding: 5px 10px 5px 10px;">
+                                <select name="ctl00$MainContent$cDdItemPerPage" id="MainContent_cDdItemPerPage" onfocus="Obj_OnFocus(this)" onblur="Obj_OnFocusClear(this)">
+		<option value="100">100</option>
+		<option value="1000">1,000</option>
+		<option selected="selected" value="5000">5,000</option>
+
+	</select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" style="height: 3px; padding:0px; border: 1px solid #D6D6D6; border-left:none; border-right:none;"></td>
+                        </tr>
+                        <tr>
+                            <td align="center" style="background-color: #F0F0F0;">
+                                ผลการค้นหา
+                            </td>
+                            <td style="padding: 5px 10px 5px 5px;">
+                                <table cellpadding="0" cellspacing="0" style="width:100%;">
+                                    <tr>
+                                        <td align="left">
+                                            <input id="MainContent_cChkIsShowNewWindows" type="checkbox" name="ctl00$MainContent$cChkIsShowNewWindows" /><label for="MainContent_cChkIsShowNewWindows">แสดงในหน้าต่างใหม่</label>
+                                        </td>
+                                        <td align="right">
+                                            <a href='/WebFront/Stocks/StockProduct_EditColumn.aspx?q=%2fwEFFElzUG9wdXBXaW5kb3dzPUZhbHNl'
+                                                onclick="return hs.htmlExpand(this, {objectType: 'iframe', width: 760, height: 540,headingText: 'ตั้งค่าคอลัมน์ตาราง', wrapperClassName: 'titlebar'});"
+                                                class="Button_Default">ตั้งค่าคอลัมน์ตาราง</a>
+                                        </td>
+                                        <td align="right">
+                                            <a href='/WebFront/Stocks/StockProduct_EditColumn.aspx?q=%2fwEFE0lzUG9wdXBXaW5kb3dzPVRydWU%3d'
+                                                onclick="return hs.htmlExpand(this, {objectType: 'iframe', width: 760, height: 540,headingText: 'ตั้งค่าคอลัมน์ตารางสำหรับหน้าต่างใหม่', wrapperClassName: 'titlebar'});"
+                                                class="Button_Default">ตั้งค่าคอลัมน์ตารางสำหรับหน้าต่างใหม่</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td align="center">
+                    <br />
+                    <input type="submit" name="ctl00$MainContent$cBtnFind" value="ค้นหา" onclick="PopupMessage(this, &#39;กำลังดำเนินการ กรุณารอสักครู่...&#39;, 500, 200);" id="MainContent_cBtnFind" onfocus="Obj_OnFocus(this)" onblur="Obj_OnFocusClear(this)" />
+                </td>
+            </tr>
+        </table>
+
+        
+</div>
+
+    </fieldset>
+
+    <fieldset>
+        <legend>
+            <span ParentPanel="cPnProductList"><input id="MainContent_cChkProductList" type="checkbox" name="ctl00$MainContent$cChkProductList" checked="checked" /><label for="MainContent_cChkProductList">รายการสินค้า</label></span>
+        </legend>
+
+        <div id="MainContent_cPnProductList">
+	
+            <div>
+		<table cellspacing="0" rules="all" border="1" id="MainContent_cGrvProduct" bgcolor="White" width="100%">
+			<tr align="center" bgcolor="#3C7E12">
+				<th scope="col"><font color="White">ลำดับ</font></th><th scope="col"><font color="White">รหัสสินค้า</font></th><th scope="col"><font color="White">ชื่อสินค้า/หน่วย</font></th><th scope="col"><font color="White">จำนวนคงเหลือ</font></th><th scope="col"><font color="White">สถานที่เก็บ</font></th><th scope="col"><font color="White">หมายเหตุสั่งซื้อ</font></th><th scope="col"><font color="White">บริษัทจำหน่าย</font></th>
+			</tr><tr>
+				<td colspan="7"><font color="Silver">ไม่มีรายการที่จะแสดง</font></td>
+			</tr>
+		</table>
+	</div>
+            
+        
+</div>
+
+    </fieldset>
+
+
+
+    <input type="hidden" name="ctl00$MainContent$cHdUser_Id" id="MainContent_cHdUser_Id" value="74" />
+    <input type="hidden" name="ctl00$MainContent$cHdGridColumns" id="MainContent_cHdGridColumns" value="VF_RowNumber,Product_Code,VF_ProductNameUnit,Product_Qty,Product_Location,Product_OrderComment,VF_Product_SellerMainCode" />
+
+
+    <a id="cLkCopyCreateProduct" style="display:none;"
+        href='/WebFront/Stocks/Products.aspx?q=%2fwEFIVByb2R1Y3RfSWQ9LTEmSXNDb3B5VG9JbnNlcnQ9VHJ1ZQ%3d%3d' 
+        onclick="return hs.htmlExpand(this, {objectType: 'iframe', width: 960, height: 750,headingText: 'รายละเอียดสินค้า', wrapperClassName: 'titlebar'});"></a>
+    <a id="MainContent_cLkUpdate" href="javascript:__doPostBack(&#39;ctl00$MainContent$cLkUpdate&#39;,&#39;&#39;)"></a>
+    <a id="MainContent_cLkUpdateAfterInserted" href="javascript:__doPostBack(&#39;ctl00$MainContent$cLkUpdateAfterInserted&#39;,&#39;&#39;)"></a>
+    <a id="MainContent_cLkInsertFromCurrentProduct" href="javascript:__doPostBack(&#39;ctl00$MainContent$cLkInsertFromCurrentProduct&#39;,&#39;&#39;)"></a>
+    <input type="hidden" name="ctl00$MainContent$cHdProduct_Id" id="MainContent_cHdProduct_Id" value="-1" />
+    <input type="hidden" name="ctl00$MainContent$cHdIsCopyToInsert" id="MainContent_cHdIsCopyToInsert" value="false" />
+    <input type="hidden" name="ctl00$MainContent$cHdIsBranchRunning" id="MainContent_cHdIsBranchRunning" value="False" />
+
+
+            </div>
+
+            
+
+
+<div id="cDvFooter_Container">
+    <span id="Page_Footer1_cLbCopyRight" class="cSpFooter">&copy;2012 - 2019 CW Software Co.,Ltd. All rights reserved.</span>
+</div>
+
+
+
+    </div>
+
+    
+<script type='text/javascript'>new Sys.WebForms.Menu({ element: 'MenuMain1_cMenuMain', disappearAfter: 500, orientation: 'horizontal', tabIndex: 0, disabled: false });</script>
+<script type="text/javascript">
+//<![CDATA[
+var MenuSub_MenuSub_Stocks_cMenu1_Data = new Object();
+MenuSub_MenuSub_Stocks_cMenu1_Data.disappearAfter = 500;
+MenuSub_MenuSub_Stocks_cMenu1_Data.horizontalOffset = 0;
+MenuSub_MenuSub_Stocks_cMenu1_Data.verticalOffset = 0;
+var MenuSub_MenuSub_Stocks_cMenu2_Data = new Object();
+MenuSub_MenuSub_Stocks_cMenu2_Data.disappearAfter = 500;
+MenuSub_MenuSub_Stocks_cMenu2_Data.horizontalOffset = 0;
+MenuSub_MenuSub_Stocks_cMenu2_Data.verticalOffset = 0;
+var MenuSub_MenuSub_Stocks_cMenu3_Data = new Object();
+MenuSub_MenuSub_Stocks_cMenu3_Data.disappearAfter = 500;
+MenuSub_MenuSub_Stocks_cMenu3_Data.horizontalOffset = 0;
+MenuSub_MenuSub_Stocks_cMenu3_Data.verticalOffset = 0;
+//]]>
+</script>
+</form>
+</body>
+</html>
